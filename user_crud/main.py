@@ -57,7 +57,8 @@ def users():
 
 
 @app.route('/edit/')
-def edit_view(id):
+def edit_view():
+    id = request.args.get('id')
     try:
         conn = mysql.connect()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
@@ -68,6 +69,7 @@ def edit_view(id):
         else:
             return 'Error loading #{id}'.format(id=id)
     except Exception as e:
+        return e;
         print(e)
     finally:
         cursor.close()
